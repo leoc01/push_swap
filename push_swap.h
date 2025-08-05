@@ -10,4 +10,11 @@ typedef struct	s_stack
 	struct s_stack	*next;
 }	t_stack;
 
+typedef struct	s_heap
+{
+	t_stack	*a;
+	t_stack	*b;
+	char	**nums;
+}	t_heap;
+
 #endif
