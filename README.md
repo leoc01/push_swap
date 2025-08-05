@@ -1,2 +1,2 @@
 # push_swap
-An stack sorting algorithm.
+An stack sorting program.
