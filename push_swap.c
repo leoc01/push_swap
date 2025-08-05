@@ -20,7 +20,6 @@ int	main(int ac, char **av)
 	else
 		nums = &av[1];
 	h->a = init_stack(h, nums);
-//	write(1, "0", 1);
 	print_stack(h, h->a);
 	close_ps(h, 0);
 }
