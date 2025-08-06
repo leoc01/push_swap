@@ -9,19 +9,24 @@ static void		close_ps(t_heap *h, int code);
 int	main(int ac, char **av)
 {
 	char	**nums;
-	t_heap	*h;
+	t_heap	h;
 
-	h = NULL;
+	nums = NULL;
+	h.nums = NULL;
 	if (ac < 2)
 		return (1);
-	h = ft_calloc(1, sizeof(t_heap));
-	if (ac == 2)
-		h->nums = ft_split(av[1], ' ');
+	else if (ac == 2)
+	{
+		h.nums = ft_split(av[1], ' ');
+		h.a = init_stack(&h, h.nums);
+	}
 	else
+	{
 		nums = &av[1];
-	h->a = init_stack(h, nums);
-	print_stack(h, h->a);
-	close_ps(h, 0);
+		h.a = init_stack(&h, nums);
+	}
+	print_stack(&h, h.a);
+	close_ps(&h, 0);
 }
 
 static t_stack	*init_stack(t_heap *h, char **nums)
@@ -77,17 +82,19 @@ static t_stack	*stack_add(t_heap *h, t_stack *first, int num)
 
 static void		print_stack(t_heap *h, t_stack *a)
 {
+	t_stack	*last;
+
+	last = a->prev;
 	if (!a)
 		close_ps(h, 1);
-	ft_putnbr_fd(a->num, 1);
-	ft_putstr_fd("\n", 1);
-	a = a->next;
-	while (a->num > a->prev->num)
+	while (a != last)
 	{
 		ft_putnbr_fd(a->num, 1);
 		ft_putstr_fd("\n", 1);
 		a = a->next;
 	}
+	ft_putnbr_fd(a->num, 1);
+	ft_putstr_fd("\n", 1);
 }
 
 static void	stack_free(t_stack **stack)
@@ -108,22 +115,21 @@ static void	stack_free(t_stack **stack)
 
 static void	close_ps(t_heap *h, int code)
 {
-	if (h)
+	char **nums;
+
+	nums = h->nums;
+	if (nums)
 	{
-		if (h->nums)
+		while (*nums)
 		{
-			while (*h->nums)
-			{
-				free(*h->nums);
-				h->nums++;
-			}
-			free(h->nums);
+			free(*nums);
+			nums++;
 		}
-		if (h->a)
-		{
-			stack_free(&h->a);
-		}
-		free(h);
+		free(h->nums);
+	}
+	if (h->a)
+	{
+		stack_free(&h->a);
 	}
 	if (code)
 		ft_putstr_fd("Error\n", 2);
