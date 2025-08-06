@@ -6,6 +6,29 @@ static t_stack	*stack_add(t_heap *h, t_stack *a, int num);
 static void		print_stack(t_heap *h, t_stack *a);
 static void		close_ps(t_heap *h, int code);
 
+void	ra(t_heap *h)
+{
+	h->a = h->a->prev;
+	ft_putstr_fd("ra\n", 1);
+}
+
+void	rra(t_heap *h)
+{
+	h->a = h->a->next;
+	ft_putstr_fd("rra\n", 1);
+}
+
+void	pb(t_heap *h)
+{
+	h->a->prev->next = h->a->next;
+	h->a->next->prev = h->a->prev;
+	h->b = h->a;
+	h->a = h->a->next;
+	h->b->next = NULL;
+	h->b->prev = NULL;
+	ft_putstr_fd("\npb\n", 1);
+}
+
 int	main(int ac, char **av)
 {
 	char	**nums;
@@ -14,7 +37,7 @@ int	main(int ac, char **av)
 	nums = NULL;
 	h.nums = NULL;
 	if (ac < 2)
-		return (1);
+		return (55);
 	else if (ac == 2)
 	{
 		h.nums = ft_split(av[1], ' ');
@@ -25,7 +48,14 @@ int	main(int ac, char **av)
 		nums = &av[1];
 		h.a = init_stack(&h, nums);
 	}
+	h.b = NULL;
+	ft_putstr_fd("Stack A:\n", 1);
 	print_stack(&h, h.a);
+	pb(&h);
+	ft_putstr_fd("\nStack A:\n", 1);
+	print_stack(&h, h.a);
+	ft_putstr_fd("\nStack B:\n", 1);
+	print_stack(&h, h.b);
 	close_ps(&h, 0);
 }
 
@@ -80,14 +110,16 @@ static t_stack	*stack_add(t_heap *h, t_stack *first, int num)
 	return (last);
 }
 
-static void		print_stack(t_heap *h, t_stack *a)
+static void	print_stack(t_heap *h, t_stack *a)
 {
 	t_stack	*last;
 
+	if (!a)
+		return ;
 	last = a->prev;
 	if (!a)
 		close_ps(h, 1);
-	while (a != last)
+	while (a && a != last)
 	{
 		ft_putnbr_fd(a->num, 1);
 		ft_putstr_fd("\n", 1);
