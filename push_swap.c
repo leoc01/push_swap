@@ -20,12 +20,29 @@ void	rra(t_heap *h)
 
 void	pb(t_heap *h)
 {
+	t_stack	*na;
+	t_stack	*nb;
+
+	if (!h->a)
+		return;
 	h->a->prev->next = h->a->next;
 	h->a->next->prev = h->a->prev;
-	h->b = h->a;
-	h->a = h->a->next;
-	h->b->next = NULL;
-	h->b->prev = NULL;
+	na = h->a->next;
+	nb = h->a;
+	if (h->b)
+	{
+		h->b->prev->next = nb;
+		h->b->next->prev = nb;
+		nb->next = h->b;
+		nb->prev = h->b->prev;
+	}
+	else
+	{
+		nb->next = nb;
+		nb->prev = nb;
+	}
+	h->b = nb;
+	h->a = na;
 	ft_putstr_fd("\npb\n", 1);
 }
 
@@ -52,6 +69,9 @@ int	main(int ac, char **av)
 	ft_putstr_fd("Stack A:\n", 1);
 	print_stack(&h, h.a);
 	pb(&h);
+	pb(&h);
+	pb(&h);
+	//ra(&h);
 	ft_putstr_fd("\nStack A:\n", 1);
 	print_stack(&h, h.a);
 	ft_putstr_fd("\nStack B:\n", 1);
@@ -110,39 +130,40 @@ static t_stack	*stack_add(t_heap *h, t_stack *first, int num)
 	return (last);
 }
 
-static void	print_stack(t_heap *h, t_stack *a)
+static void	print_stack(t_heap *h, t_stack *s)
 {
-	t_stack	*last;
+	t_stack	*first;
 
-	if (!a)
+	if (!s)
 		return ;
-	last = a->prev;
-	if (!a)
-		close_ps(h, 1);
-	while (a && a != last)
-	{
-		ft_putnbr_fd(a->num, 1);
-		ft_putstr_fd("\n", 1);
-		a = a->next;
-	}
-	ft_putnbr_fd(a->num, 1);
+	ft_putnbr_fd(s->num, 1);
 	ft_putstr_fd("\n", 1);
+	first = s;
+	s = s->next;
+	while (s && s != first)
+	{
+		ft_putnbr_fd(s->num, 1);
+		ft_putstr_fd("\n", 1);
+		s = s->next;
+	}
 }
 
 static void	stack_free(t_stack **stack)
 {
 	t_stack *aux;
-	t_stack *first;
+	t_stack *current;
 
-	first = *stack;
-	aux = first->next->next;
-	while (aux != first)
+	current = *stack;
+	current->prev->next = NULL;
+	while (current)
 	{
-		free(aux->prev);
-		aux = aux->next;
+		ft_putstr_fd("\n", 1);
+		ft_putnbr_fd(current->num, 1);
+		aux = current->next;
+		current->next = NULL;
+		free(current);
+		current = aux;
 	}
-	free(aux->prev);
-	free(aux);
 }
 
 static void	close_ps(t_heap *h, int code)
@@ -160,9 +181,9 @@ static void	close_ps(t_heap *h, int code)
 		free(h->nums);
 	}
 	if (h->a)
-	{
 		stack_free(&h->a);
-	}
+	if (h->b)
+		stack_free(&h->b);
 	if (code)
 		ft_putstr_fd("Error\n", 2);
 	exit(code);
