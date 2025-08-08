@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbuscaro <lbuscaro@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/08 17:41:35 by lbuscaro          #+#    #+#             */
+/*   Updated: 2025/08/08 17:41:39 by lbuscaro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static t_stack	*init_stack(t_heap *h, char **nums);
-static void	link_stack(t_stack *s, int l);
+static void		link_stack(t_stack *s, int l);
 static void		close_ps(t_heap *h, int code);
 
 int	main(int ac, char **av)
@@ -31,8 +43,8 @@ int	main(int ac, char **av)
 static t_stack	*init_stack(t_heap *h, char **nums)
 {
 	t_stack	*s;
-	int	c;
-	int	l;
+	int		c;
+	int		l;
 
 	if (!nums)
 		close_ps(h, 1);
@@ -72,7 +84,7 @@ static void	link_stack(t_stack *s, int l)
 
 static void	close_ps(t_heap *h, int code)
 {
-	char **nums;
+	char	**nums;
 
 	nums = h->nums;
 	if (nums)

@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbuscaro <lbuscaro@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/08 17:40:47 by lbuscaro          #+#    #+#             */
+/*   Updated: 2025/08/08 17:40:48 by lbuscaro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
 # include "libft.h"
 
-typedef struct	s_stack
+typedef struct s_stack
 {
 	int				num;
 	struct s_stack	*prev;
 	struct s_stack	*next;
 }	t_stack;
 
-typedef struct	s_heap
+typedef struct s_heap
 {
 	t_stack	*s;
 	t_stack	*a;
@@ -33,6 +45,6 @@ void	ss(t_heap *h);
 void	pa(t_heap *h, int print);
 void	pb(t_heap *h, int print);
 
-void debug_interactive(t_heap *h);
+void	debug_interactive(t_heap *h);
 
 #endif
