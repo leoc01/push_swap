@@ -3,7 +3,7 @@
 static t_stack	*init_stack(t_heap *h, char **nums);
 static t_stack	*stack_new(t_heap *h, int num);
 static t_stack	*stack_add(t_heap *h, t_stack *a, int num);
-static void		print_stack(t_heap *h, t_stack *a);
+static void		print_stack(t_stack *s);
 static void		close_ps(t_heap *h, int code);
 
 void	ra(t_heap *h)
@@ -18,31 +18,52 @@ void	rra(t_heap *h)
 	ft_putstr_fd("rra\n", 1);
 }
 
+t_stack	*remove(t_stack **s)
+{
+	t_stack	*r;
+
+	if (!s || !*s)
+		return (NULL);
+	r = *s;
+	if (*s == (*s)->next)
+		*s = NULL;
+	else
+	{
+		(*s)->prev->next = (*s)->next;
+		(*s)->next->prev = (*s)->prev;
+		*s = (*s)->next;
+	}
+	return (r);
+}
+
+void	insert(t_stack *i, t_stack **s)
+{
+	if (!i || !s)
+		return ;
+	if (!*s)
+	{
+		i->next = i;
+		i->prev = i;
+	}
+	else
+	{
+		i->next = *s;
+		i->prev = (*s)->prev;
+		i->prev->next = i;
+		i->next->prev = i;
+	}
+	*s = i;
+}
+
 void	pb(t_heap *h)
 {
-	t_stack	*na;
 	t_stack	*nb;
 
 	if (!h->a)
 		return;
-	h->a->prev->next = h->a->next;
-	h->a->next->prev = h->a->prev;
-	na = h->a->next;
-	nb = h->a;
-	if (h->b)
-	{
-		h->b->prev->next = nb;
-		h->b->next->prev = nb;
-		nb->next = h->b;
-		nb->prev = h->b->prev;
-	}
-	else
-	{
-		nb->next = nb;
-		nb->prev = nb;
-	}
-	h->b = nb;
-	h->a = na;
+	nb = remove(&h->a);
+	if (nb)
+		insert(nb, &h->b);
 	ft_putstr_fd("\npb\n", 1);
 }
 
@@ -67,15 +88,15 @@ int	main(int ac, char **av)
 	}
 	h.b = NULL;
 	ft_putstr_fd("Stack A:\n", 1);
-	print_stack(&h, h.a);
+	print_stack(h.a);
 	pb(&h);
 	pb(&h);
 	pb(&h);
 	//ra(&h);
 	ft_putstr_fd("\nStack A:\n", 1);
-	print_stack(&h, h.a);
+	print_stack(h.a);
 	ft_putstr_fd("\nStack B:\n", 1);
-	print_stack(&h, h.b);
+	print_stack(h.b);
 	close_ps(&h, 0);
 }
 
@@ -130,7 +151,7 @@ static t_stack	*stack_add(t_heap *h, t_stack *first, int num)
 	return (last);
 }
 
-static void	print_stack(t_heap *h, t_stack *s)
+static void	print_stack(t_stack *s)
 {
 	t_stack	*first;
 
@@ -157,8 +178,6 @@ static void	stack_free(t_stack **stack)
 	current->prev->next = NULL;
 	while (current)
 	{
-		ft_putstr_fd("\n", 1);
-		ft_putnbr_fd(current->num, 1);
 		aux = current->next;
 		current->next = NULL;
 		free(current);
