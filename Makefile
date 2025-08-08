@@ -6,6 +6,11 @@ RM = rm -rf
 LFT = libft/libft.a
 
 SRC = push_swap.c
+SRC += ins_a.c
+SRC += ins_b.c
+SRC += ins_g.c
+SRC += ins_push.c
+SRC += inter.c
 
 OBJ = $(SRC:.c=.o)
 
