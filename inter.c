@@ -20,6 +20,7 @@ void	debug_interactive(t_heap *h)
 {
 	char	cmd[32];
 
+	sort_three(h);
 	while (1)
 	{
 		write(1, "\033[H\033[J", 6);
@@ -27,6 +28,10 @@ void	debug_interactive(t_heap *h)
 		print_stack(h->a);
 		printf("\nStack B:\n");
 		print_stack(h->b);
+		if (is_sorted(h->a))
+			printf("\nA is sorted!");
+		else
+			printf("\nKeep pushing and swapping!");
 		printf("\nEnter instruction (or 'q' to quit): ");
 		if (!fgets(cmd, sizeof(cmd), stdin))
 			break ;

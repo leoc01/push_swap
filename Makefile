@@ -22,6 +22,7 @@ SRC += ins_a.c
 SRC += ins_b.c
 SRC += ins_g.c
 SRC += ins_push.c
+SRC += sort.c
 SRC += inter.c
 
 OBJ = $(SRC:.c=.o)

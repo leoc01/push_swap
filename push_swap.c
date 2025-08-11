@@ -36,6 +36,7 @@ int	main(int ac, char **av)
 		h.a = init_stack(&h, nums);
 	}
 	h.b = NULL;
+	push_swap(&h);
 	debug_interactive(&h);
 	close_ps(&h, 0);
 }
@@ -51,10 +52,11 @@ static t_stack	*init_stack(t_heap *h, char **nums)
 	l = 0;
 	while (nums[l])
 		l++;
+	h->len = l;
 	s = ft_calloc(l, sizeof(t_stack));
-	h->s = s;
 	if (!s)
 		close_ps(h, 1);
+	h->s = s;
 	c = 0;
 	while (c < l)
 	{
