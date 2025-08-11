@@ -28,10 +28,10 @@ void	debug_interactive(t_heap *h)
 		print_stack(h->a);
 		printf("\nStack B:\n");
 		print_stack(h->b);
-		if (is_sorted(h->a))
+		if (is_sorted(h->a) && h->b == NULL)
 			printf("\nA is sorted!");
 		else
-			printf("\nKeep pushing and swapping!");
+			printf("\nKeep pushing and swapping, or maybe just rotating!");
 		printf("\nEnter instruction (or 'q' to quit): ");
 		if (!fgets(cmd, sizeof(cmd), stdin))
 			break ;
