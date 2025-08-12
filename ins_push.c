@@ -15,30 +15,32 @@
 static t_stack	*remove_s(t_stack **s);
 static void		insert_s(t_stack *i, t_stack **s);
 
-void	pa(t_heap *h, int print)
+int	pa(t_heap *h, int print)
 {
 	t_stack	*na;
 
 	if (!h->b)
-		return ;
+		return (0);
 	na = remove_s(&h->b);
 	if (na)
 		insert_s(na, &h->a);
 	if (print)
 		ft_putstr_fd("\npa\n", 1);
+	return (-1);
 }
 
-void	pb(t_heap *h, int print)
+int	pb(t_heap *h, int print)
 {
 	t_stack	*nb;
 
 	if (!h->a)
-		return ;
+		return (0);
 	nb = remove_s(&h->a);
 	if (nb)
 		insert_s(nb, &h->b);
 	if (print)
 		ft_putstr_fd("\npb\n", 1);
+	return (1);
 }
 
 static t_stack	*remove_s(t_stack **s)

@@ -43,12 +43,17 @@ void	rr(t_heap *h);
 void	rrr(t_heap *h);
 void	ss(t_heap *h);
 
-void	pa(t_heap *h, int print);
-void	pb(t_heap *h, int print);
+int		pa(t_heap *h, int print);
+int		pb(t_heap *h, int print);
 
 int		is_sorted(t_stack *s);
 void	sort_three(t_heap *h);
 void	push_swap(t_heap *h);
+int		a_target(int num, t_stack *s);
+int		b_target(int num, t_stack *s);
+int		get_max(t_stack *s);
+int		get_min(t_stack *s);
+
 
 void	debug_interactive(t_heap *h);
 
