@@ -26,6 +26,7 @@ typedef struct s_heap
 {
 	int		a_len;
 	int		b_len;
+	int		next_instruction;
 	t_stack	*s;
 	t_stack	*a;
 	t_stack	*b;
@@ -55,7 +56,8 @@ int		b_target(int num, t_stack *s);
 int		get_max(t_stack *s);
 int		get_min(t_stack *s);
 
-int		calculate_cost(t_heap *h, int num, int target, t_stack*from, t_stack *dest);
+void	find_cheaper(t_heap *h, t_stack *s, t_stack *d);
+int		calculate_cost(t_heap *h, int num, int target, t_stack *s, t_stack *d);
 int		get_position(int n, t_stack *s);
 
 void	debug_interactive(t_heap *h);

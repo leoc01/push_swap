@@ -49,8 +49,8 @@ void	push_swap(t_heap *h)
 		pb(h, 1);
 	while (h->a_len > 3)
 		break ;
-	//if (!is_sorted(h->a))
-	//	sort_three(h);
+	if (!is_sorted(h->a) && h->a_len == 3)
+		sort_three(h);
 }
 
 int	a_target(int num, t_stack *b)
@@ -66,7 +66,7 @@ int	a_target(int num, t_stack *b)
 	min = get_min(b);
 	diff = max - min;
 	new_diff = num - b->num;
-	if(new_diff > 0)
+	if (new_diff > 0)
 		diff = new_diff;
 	b = b->next;
 	while (b != first)
