@@ -43,13 +43,11 @@ void	sort_three(t_heap *h)
 void	push_swap(t_heap *h)
 {
 	int	c;
-	int	l;
 
-	l = h->len;
 	c = 2;
-	while (l > 3 && c--)
+	while (h->a_len > 3 && c--)
 		pb(h, 1);
-	while (l > 3)
+	while (h->a_len > 3)
 		break ;
 	//if (!is_sorted(h->a))
 	//	sort_three(h);
