@@ -23,6 +23,7 @@ SRC += ins_b.c
 SRC += ins_g.c
 SRC += ins_push.c
 SRC += sort.c
+SRC += cost.c
 SRC += inter.c
 
 OBJ = $(SRC:.c=.o)

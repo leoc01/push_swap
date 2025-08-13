@@ -14,7 +14,8 @@
 #include <string.h>
 #include <stdio.h>
 
-static void		print_stack(t_stack *s);
+static void		print_a(t_heap *h);
+static void		print_b(t_heap *h);
 
 void	debug_interactive(t_heap *h)
 {
@@ -23,10 +24,10 @@ void	debug_interactive(t_heap *h)
 	while (1)
 	{
 		write(1, "\033[H\033[J", 6);
-		printf("\nStack A:\n");
-		print_stack(h->a);
-		printf("\nStack B:\n");
-		print_stack(h->b);
+		printf("\nStack A:  Cost\n");
+		print_a(h);
+		printf("\nStack B:  Cost\n");
+		print_b(h);
 		if (is_sorted(h->a) && h->b == NULL)
 		{
 			printf("\nA is sorted!\n");
@@ -36,11 +37,10 @@ void	debug_interactive(t_heap *h)
 		{
 			printf("\nTarget for %d in A is %d in B.", h->a->num, a_target(h->a->num, h->b));
 			printf("\nTarget for %d in B is %d in A.", h->b->num, b_target(h->b->num, h->a));
+			printf("\nA length is %d.", h->a_len);
+			printf("\nB length is %d.", h->b_len);
+			printf("\nKeep pushing and swapping, or maybe just rotating!");
 		}
-		printf("\nA length is %d.", h->a_len);
-		printf("\nB length is %d.", h->b_len);
-		//else
-		//	printf("\nKeep pushing and swapping, or maybe just rotating!");
 		printf("\nEnter instruction (or 'q' to quit): ");
 		if (!fgets(cmd, sizeof(cmd), stdin))
 			break ;
@@ -72,20 +72,78 @@ void	debug_interactive(t_heap *h)
 	}
 }
 
-static void	print_stack(t_stack *s)
+static void	print_a(t_heap *h)
 {
 	t_stack	*first;
+	t_stack	*s;
+	t_stack	*d;
+	int		target;
+	int		cost;
 
+	s = h->a;
+	d = h->b;
 	if (!s)
 		return ;
-	ft_putnbr_fd(s->num, 1);
-	ft_putstr_fd("\n", 1);
 	first = s;
+	ft_putnbr_fd(s->num, 1);
+	if (d)
+	{
+		target = a_target(s->num, d);
+		cost = calculate_cost(h, s->num, target, first, d);
+		ft_putstr_fd("\t   ", 1);
+		ft_putnbr_fd(cost, 1);
+	}
+	ft_putstr_fd("\n ", 1);
 	s = s->next;
 	while (s && s != first)
 	{
 		ft_putnbr_fd(s->num, 1);
-		ft_putstr_fd("\n", 1);
+		if (d)
+		{
+			target = a_target(s->num, d);
+			cost = calculate_cost(h, s->num, target, first, d);
+			ft_putstr_fd("\t   ", 1);
+			ft_putnbr_fd(cost, 1);
+		}
+		ft_putstr_fd("\n ", 1);
+		s = s->next;
+	}
+}
+
+static void	print_b(t_heap *h)
+{
+	t_stack	*first;
+	t_stack	*s;
+	t_stack	*d;
+	int		target;
+	int		cost;
+
+	s = h->b;
+	d = h->a;
+	if (!s)
+		return ;
+	first = s;
+	ft_putnbr_fd(s->num, 1);
+	if (d)
+	{
+		target = b_target(s->num, d);
+		cost = calculate_cost(h, s->num, target, first, d);
+		ft_putstr_fd("\t   ", 1);
+		ft_putnbr_fd(cost, 1);
+	}
+	ft_putstr_fd("\n ", 1);
+	s = s->next;
+	while (s && s != first)
+	{
+		ft_putnbr_fd(s->num, 1);
+		if (d)
+		{
+			target = a_target(s->num, d);
+			cost = calculate_cost(h, s->num, target, first, d);
+			ft_putstr_fd("\t   ", 1);
+			ft_putnbr_fd(cost, 1);
+		}
+		ft_putstr_fd("\n ", 1);
 		s = s->next;
 	}
 }

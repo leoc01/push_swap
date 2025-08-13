@@ -55,6 +55,8 @@ int		b_target(int num, t_stack *s);
 int		get_max(t_stack *s);
 int		get_min(t_stack *s);
 
+int		calculate_cost(t_heap *h, int num, int target, t_stack*from, t_stack *dest);
+int		get_position(int n, t_stack *s);
 
 void	debug_interactive(t_heap *h);
 
