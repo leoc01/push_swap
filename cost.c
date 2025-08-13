@@ -14,12 +14,14 @@
 
 static int	max(int n1, int n2);
 static int	min(int n1, int n2);
-
+/*
 void	find_cheaper()
 {
+	int	cost;
 
+	cost = calculate_cost(
 }
-
+*/
 int	calculate_cost(t_heap *h, int num, int target, t_stack *from, t_stack *dest)
 {
 	int	rrn;

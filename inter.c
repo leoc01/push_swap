@@ -24,23 +24,16 @@ void	debug_interactive(t_heap *h)
 	while (1)
 	{
 		write(1, "\033[H\033[J", 6);
-		printf("\nStack A:  Cost\n");
+		printf("\nStack A (%d)\tTarget\tCost\n", h->a_len);
 		print_a(h);
-		printf("\nStack B:  Cost\n");
+		printf("\nStack B (%d)\tTarget\tCost\n", h->b_len);
 		print_b(h);
 		if (is_sorted(h->a) && h->b == NULL)
 		{
-			printf("\nA is sorted!\n");
+			printf("\nCongrats!!\n\nThe stack is sorted!\n");
 			break ;
 		}
-		else if (h->a && h->b)
-		{
-			printf("\nTarget for %d in A is %d in B.", h->a->num, a_target(h->a->num, h->b));
-			printf("\nTarget for %d in B is %d in A.", h->b->num, b_target(h->b->num, h->a));
-			printf("\nA length is %d.", h->a_len);
-			printf("\nB length is %d.", h->b_len);
-			printf("\nKeep pushing and swapping, or maybe just rotating!");
-		}
+		printf("\nKeep pushing and swapping, or maybe just rotating!\n");
 		printf("\nEnter instruction (or 'q' to quit): ");
 		if (!fgets(cmd, sizeof(cmd), stdin))
 			break ;
@@ -85,29 +78,26 @@ static void	print_a(t_heap *h)
 	if (!s)
 		return ;
 	first = s;
-	ft_putnbr_fd(s->num, 1);
+	printf(" %d", s->num);
 	if (d)
 	{
 		target = a_target(s->num, d);
 		cost = calculate_cost(h, s->num, target, first, d);
-		ft_putstr_fd("\t   ", 1);
-		ft_putnbr_fd(cost, 1);
+		printf("\t\t ->%d\t $%d", target, cost);
 	}
-	ft_putstr_fd("\n ", 1);
 	s = s->next;
 	while (s && s != first)
 	{
-		ft_putnbr_fd(s->num, 1);
+		printf("\n %d", s->num);
 		if (d)
 		{
 			target = a_target(s->num, d);
 			cost = calculate_cost(h, s->num, target, first, d);
-			ft_putstr_fd("\t   ", 1);
-			ft_putnbr_fd(cost, 1);
+			printf("\t\t ->%d\t $%d", target, cost);
 		}
-		ft_putstr_fd("\n ", 1);
 		s = s->next;
 	}
+	printf("\n");
 }
 
 static void	print_b(t_heap *h)
@@ -123,27 +113,24 @@ static void	print_b(t_heap *h)
 	if (!s)
 		return ;
 	first = s;
-	ft_putnbr_fd(s->num, 1);
+	printf(" %d", s->num);
 	if (d)
 	{
 		target = b_target(s->num, d);
 		cost = calculate_cost(h, s->num, target, first, d);
-		ft_putstr_fd("\t   ", 1);
-		ft_putnbr_fd(cost, 1);
+		printf("\t\t ->%d\t $%d", target, cost);
 	}
-	ft_putstr_fd("\n ", 1);
 	s = s->next;
 	while (s && s != first)
 	{
-		ft_putnbr_fd(s->num, 1);
+		printf("\n %d", s->num);
 		if (d)
 		{
 			target = a_target(s->num, d);
 			cost = calculate_cost(h, s->num, target, first, d);
-			ft_putstr_fd("\t   ", 1);
-			ft_putnbr_fd(cost, 1);
+			printf("\t\t ->%d\t $%d", target, cost);
 		}
-		ft_putstr_fd("\n ", 1);
 		s = s->next;
 	}
+	printf("\n");
 }
