@@ -52,7 +52,8 @@ static t_stack	*init_stack(t_heap *h, char **nums)
 	l = 0;
 	while (nums[l])
 		l++;
-	h->len = l;
+	h->a_len = l;
+	h->b_len = 0;
 	s = ft_calloc(l, sizeof(t_stack));
 	if (!s)
 		close_ps(h, 1);

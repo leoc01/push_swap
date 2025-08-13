@@ -24,7 +24,8 @@ typedef struct s_stack
 
 typedef struct s_heap
 {
-	int		len;
+	int		a_len;
+	int		b_len;
 	t_stack	*s;
 	t_stack	*a;
 	t_stack	*b;
@@ -43,8 +44,8 @@ void	rr(t_heap *h);
 void	rrr(t_heap *h);
 void	ss(t_heap *h);
 
-int		pa(t_heap *h, int print);
-int		pb(t_heap *h, int print);
+void	pa(t_heap *h, int print);
+void	pb(t_heap *h, int print);
 
 int		is_sorted(t_stack *s);
 void	sort_three(t_heap *h);

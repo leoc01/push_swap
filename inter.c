@@ -37,6 +37,8 @@ void	debug_interactive(t_heap *h)
 			printf("\nTarget for %d in A is %d in B.", h->a->num, a_target(h->a->num, h->b));
 			printf("\nTarget for %d in B is %d in A.", h->b->num, b_target(h->b->num, h->a));
 		}
+		printf("\nA length is %d.", h->a_len);
+		printf("\nB length is %d.", h->b_len);
 		//else
 		//	printf("\nKeep pushing and swapping, or maybe just rotating!");
 		printf("\nEnter instruction (or 'q' to quit): ");
