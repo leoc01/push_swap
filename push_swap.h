@@ -51,14 +51,19 @@ void	pb(t_heap *h, int print);
 int		is_sorted(t_stack *s);
 void	sort_three(t_heap *h);
 void	push_swap(t_heap *h);
-int		a_target(int num, t_stack *s);
-int		b_target(int num, t_stack *s);
+
+int		get_target(t_heap *h, int num, t_stack *d);
+int		a_target(int num, t_stack *s, int l, int h);
+int		b_target(int num, t_stack *s, int l, int h);
 int		get_max(t_stack *s);
 int		get_min(t_stack *s);
 
 void	find_cheaper(t_heap *h, t_stack *s, t_stack *d);
-int		calculate_cost(t_heap *h, int num, int target, t_stack *s, t_stack *d);
+int		get_cost(t_heap *h, int num, t_stack *s, t_stack *d);
 int		get_position(int n, t_stack *s);
+
+int	max(int n1, int n2);
+int	min(int n1, int n2);
 
 void	debug_interactive(t_heap *h);
 

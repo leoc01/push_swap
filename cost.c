@@ -12,9 +12,6 @@
 
 #include "push_swap.h"
 
-static int	max(int n1, int n2);
-static int	min(int n1, int n2);
-
 void	find_cheaper(t_heap *h, t_stack *s, t_stack *d)
 {
 	int		cost;
@@ -22,23 +19,25 @@ void	find_cheaper(t_heap *h, t_stack *s, t_stack *d)
 	t_stack	*first;
 
 	first = s;
-	cost = calculate_cost(h, s->num, a_target(s->num, d), s, d);
+	cost = get_cost(h, s->num, first, d);
 	while (s != first && cost != 0)
 	{
-		new_cost = calculate_cost(h, s->num, a_target(s->num, d), s, d);
+		new_cost = get_cost(h, s->num, first, d);
 		if (new_cost < cost)
 			cost = new_cost;
 		s = s->next;
 	}
 }
 
-int	calculate_cost(t_heap *h, int num, int target, t_stack *s, t_stack *d)
+int	get_cost(t_heap *h, int num, t_stack *s, t_stack *d)
 {
 	int	rrn;
 	int	rrt;
 	int	rn;
 	int	rt;
+	int	target;
 
+	target = get_target(h, num, d);
 	if (!s || !d)
 		return (0);
 	rrn = get_position(num, s);
@@ -56,36 +55,4 @@ int	calculate_cost(t_heap *h, int num, int target, t_stack *s, t_stack *d)
 	return (min(min(max(rn, rt), max(rrn, rrt)), min(rn + rrt, rrn + rt)));
 }
 
-int	get_position(int num, t_stack *s)
-{
-	t_stack	*first;
-	int		p;
 
-	p = 0;
-	first = s;
-	if (first->num == num)
-		return (p);
-	s = s->next;
-	while (s != first)
-	{
-		p++;
-		if (s->num == num)
-			return (p);
-		s = s->next;
-	}
-	return (0);
-}
-
-static int	max(int n1, int n2)
-{
-	if (n1 >= n2)
-		return (n1);
-	return (n2);
-}
-
-static int	min(int n1, int n2)
-{
-	if (n1 <= n2)
-		return (n1);
-	return (n2);
-}

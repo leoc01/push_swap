@@ -81,8 +81,8 @@ static void	print_a(t_heap *h)
 	printf(" %d", s->num);
 	if (d)
 	{
-		target = a_target(s->num, d);
-		cost = calculate_cost(h, s->num, target, first, d);
+		target = get_target(h, s->num, d);
+		cost = get_cost(h, s->num, first, d);
 		printf("\t\t ->%d\t $%d", target, cost);
 	}
 	s = s->next;
@@ -91,8 +91,8 @@ static void	print_a(t_heap *h)
 		printf("\n %d", s->num);
 		if (d)
 		{
-			target = a_target(s->num, d);
-			cost = calculate_cost(h, s->num, target, first, d);
+			target = get_target(h, s->num, d);
+			cost = get_cost(h, s->num, first, d);
 			printf("\t\t ->%d\t $%d", target, cost);
 		}
 		s = s->next;
@@ -116,8 +116,8 @@ static void	print_b(t_heap *h)
 	printf(" %d", s->num);
 	if (d)
 	{
-		target = b_target(s->num, d);
-		cost = calculate_cost(h, s->num, target, first, d);
+		target = get_target(h, s->num, d);
+		cost = get_cost(h, s->num, first, d);
 		printf("\t\t ->%d\t $%d", target, cost);
 	}
 	s = s->next;
@@ -126,8 +126,8 @@ static void	print_b(t_heap *h)
 		printf("\n %d", s->num);
 		if (d)
 		{
-			target = a_target(s->num, d);
-			cost = calculate_cost(h, s->num, target, first, d);
+			target = get_target(h, s->num, d);
+			cost = get_cost(h, s->num, first, d);
 			printf("\t\t ->%d\t $%d", target, cost);
 		}
 		s = s->next;
