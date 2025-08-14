@@ -20,6 +20,7 @@ t_move	find_cheaper(t_heap *h, t_stack *s, t_stack *d)
 
 	first = s;
 	best = get_cost(h, s->num, first, d);
+	s = s->next;
 	while (s != first && best.value != 0)
 	{
 		new = get_cost(h, s->num, first, d);
