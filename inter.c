@@ -20,6 +20,7 @@ static void		print_b(t_heap *h);
 void	debug_interactive(t_heap *h)
 {
 	char	cmd[32];
+	t_move best;
 
 	while (1)
 	{
@@ -33,8 +34,9 @@ void	debug_interactive(t_heap *h)
 			printf("\nCongrats!!\n\nThe stack is sorted!\n");
 			break ;
 		}
+		best = find_cheaper(h, h->a, h->b);
 		printf("\nKeep pushing and swapping, or maybe just rotating!\n");
-		printf("\nEnter instruction (or 'q' to quit): ");
+		printf("\nEnter instruction (hint - %c): ", best.instruction);
 		if (!fgets(cmd, sizeof(cmd), stdin))
 			break ;
 		cmd[strcspn(cmd, "\n")] = 0;
@@ -82,7 +84,7 @@ static void	print_a(t_heap *h)
 	if (d)
 	{
 		target = get_target(h, s->num, d);
-		cost = get_cost(h, s->num, first, d);
+		cost = get_cost(h, s->num, first, d).value;
 		printf("\t\t ->%d\t $%d", target, cost);
 	}
 	s = s->next;
@@ -92,7 +94,7 @@ static void	print_a(t_heap *h)
 		if (d)
 		{
 			target = get_target(h, s->num, d);
-			cost = get_cost(h, s->num, first, d);
+			cost = get_cost(h, s->num, first, d).value;
 			printf("\t\t ->%d\t $%d", target, cost);
 		}
 		s = s->next;
@@ -117,7 +119,7 @@ static void	print_b(t_heap *h)
 	if (d)
 	{
 		target = get_target(h, s->num, d);
-		cost = get_cost(h, s->num, first, d);
+		cost = get_cost(h, s->num, first, d).value;
 		printf("\t\t ->%d\t $%d", target, cost);
 	}
 	s = s->next;
@@ -127,7 +129,7 @@ static void	print_b(t_heap *h)
 		if (d)
 		{
 			target = get_target(h, s->num, d);
-			cost = get_cost(h, s->num, first, d);
+			cost = get_cost(h, s->num, first, d).value;
 			printf("\t\t ->%d\t $%d", target, cost);
 		}
 		s = s->next;

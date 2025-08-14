@@ -22,11 +22,17 @@ typedef struct s_stack
 	struct s_stack	*next;
 }	t_stack;
 
+typedef struct s_move
+{
+	int		value;
+	char	instruction;
+}	t_move;
+
 typedef struct s_heap
 {
 	int		a_len;
 	int		b_len;
-	int		next_instruction;
+	t_move	move;
 	t_stack	*s;
 	t_stack	*a;
 	t_stack	*b;
@@ -58,8 +64,8 @@ int		b_target(int num, t_stack *s, int l, int h);
 int		get_max(t_stack *s);
 int		get_min(t_stack *s);
 
-void	find_cheaper(t_heap *h, t_stack *s, t_stack *d);
-int		get_cost(t_heap *h, int num, t_stack *s, t_stack *d);
+t_move	find_cheaper(t_heap *h, t_stack *s, t_stack *d);
+t_move	get_cost(t_heap *h, int num, t_stack *s, t_stack *d);
 int		get_position(int n, t_stack *s);
 
 int	max(int n1, int n2);
