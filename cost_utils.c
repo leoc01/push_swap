@@ -32,6 +32,13 @@ int	get_position(int num, t_stack *s)
 	return (0);
 }
 
+int	get_len(t_heap *h, t_stack *s)
+{
+	if (s == h->a)
+		return (h->a_len);
+	return (h->b_len);
+}
+
 int	max(int n1, int n2)
 {
 	if (n1 >= n2)
