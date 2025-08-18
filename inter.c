@@ -36,7 +36,7 @@ void	debug_interactive(t_heap *h)
 		}
 		best = find_cheaper(h, h->a, h->b);
 		printf("\nKeep pushing and swapping, or maybe just rotating!\n");
-		printf("\nEnter instruction (hint - %c, cost - %d) %d on %d: ", best.instruction, best.cost, best.num, best.target);
+		printf("\nEnter instruction (hint - %s, cost - %d) %d on %d: ", best.instruction, best.cost, best.num, best.target);
 		if (!fgets(cmd, sizeof(cmd), stdin))
 			break ;
 		cmd[strcspn(cmd, "\n")] = 0;

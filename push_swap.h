@@ -32,11 +32,12 @@ typedef struct s_pos
 
 typedef struct s_move
 {
+	t_stack	*s;
+	t_stack	*d;
 	int		cost;
-	char	instruction;
+	char	instruction[4];
 	int		num;
 	int		target;
-
 }	t_move;
 
 typedef struct s_heap
@@ -77,7 +78,7 @@ int		get_min(t_stack *s);
 
 t_move	find_cheaper(t_heap *h, t_stack *s, t_stack *d);
 t_move	get_cost(t_heap *h, int num, t_stack *s, t_stack *d);
-void	def_move(t_move *best);
+void	def_move(t_heap *h, t_move *best);
 
 int		get_position(int n, t_stack *s);
 int		get_len(t_heap *h, t_stack *s);

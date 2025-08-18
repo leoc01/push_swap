@@ -17,6 +17,8 @@ int	get_position(int num, t_stack *s)
 	t_stack	*first;
 	int		p;
 
+	if (!s)
+		return (0);
 	p = 0;
 	first = s;
 	if (first->num == num)

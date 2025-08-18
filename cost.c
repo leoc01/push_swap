@@ -28,14 +28,44 @@ t_move	find_cheaper(t_heap *h, t_stack *s, t_stack *d)
 			best = new;
 		s = s->next;
 	}
-	def_move(&best);
+	def_move(h, &best);
 	return (best);
 }
 
-void	def_move(t_move *best)
-{
-	(void)best;
-	return ;	
+void	def_move(t_heap *h, t_move *best)
+{	
+	int	rn;
+	int	rt;
+	int rrn;
+	int rrt;
+
+	rrn = get_position(best->num, best->s);
+	rrt = get_position(best->target, best->d);
+	rn = get_len(h, best->s) - rrn;
+	rt = get_len(h, best->d) - rrt;
+
+	if (best->cost == 0)
+		return ;
+	else if (best->cost == rn + rrt && rn)
+		ft_strlcpy(best->instruction, "rn", 4);
+	else if (best->cost == rn + rrt && !rn) 
+		ft_strlcpy(best->instruction, "rrt", 4);
+	else if (best->cost == rrn + rt && rt)
+		ft_strlcpy(best->instruction, "rt", 4);
+	else if (best->cost == rrn + rt && !rt) 
+		ft_strlcpy(best->instruction, "rrn", 4);
+	else if (best->cost == max(rn, rt) && rn && rt)
+		ft_strlcpy(best->instruction, "rr", 4);
+	else if (best->cost == max(rn, rt) && rn && !rt)
+		ft_strlcpy(best->instruction, "rn", 4);
+	else if (best->cost == max(rn, rt) && !rn && rt)
+		ft_strlcpy(best->instruction, "rt", 4);
+	else if (best->cost == max(rrn, rrt) && rrn && rrt)
+		ft_strlcpy(best->instruction, "rrr", 4);
+	else if (best->cost == max(rrn, rrt) && rrn && !rrt)
+		ft_strlcpy(best->instruction, "rrn", 4);
+	else if (best->cost == max(rrn, rrt) && !rrn && rrt)
+		ft_strlcpy(best->instruction, "rrt", 4);
 }
 
 t_move	get_cost(t_heap *h, int num, t_stack *s, t_stack *d)
@@ -46,9 +76,11 @@ t_move	get_cost(t_heap *h, int num, t_stack *s, t_stack *d)
 	int rrn;
 	int rrt;
 
-	move.instruction = 'p';
+	ft_strlcpy(move.instruction, "p", 4);
 	move.num = num;
 	move.target = get_target(h, num, d);
+	move.s = s;
+	move.d = d;
 	if (!s || !d)
 		return (move);
 	rrn = get_position(num, s);

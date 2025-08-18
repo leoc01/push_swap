@@ -32,6 +32,8 @@ int	a_target(int num, t_stack *s, int l, int h)
 	int		new_diff;
 	t_stack	*first;
 
+	if (!s)
+		return (0);
 	first = s;
 	new_diff = num - first->num;
 	s = s->next;
@@ -56,6 +58,8 @@ int	b_target(int num, t_stack *s, int l, int h)
 	int		new_diff;
 	t_stack	*first;
 
+	if (!s)
+		return (0);
 	first = s;
 	new_diff = num - first->num;
 	s = s->next;
@@ -79,6 +83,8 @@ int	get_max(t_stack *s)
 	int		max;
 	t_stack	*first;
 
+	if (!s)
+		return (0);
 	first = s;
 	max = first->num;
 	s = s->next;
@@ -96,6 +102,8 @@ int	get_min(t_stack *s)
 	int		min;
 	t_stack	*first;
 
+	if (!s)
+		return (0);
 	first = s;
 	min = first->num;
 	s = s->next;

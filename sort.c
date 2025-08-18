@@ -13,6 +13,8 @@
 #include "push_swap.h"
 #include <stdio.h>
 
+static void	do_move(t_heap *h, char stack, char *instruction);
+
 int	is_sorted(t_stack *s)
 {
 	t_stack	*first;
@@ -42,13 +44,71 @@ void	sort_three(t_heap *h)
 
 void	push_swap(t_heap *h)
 {
-	int	c;
+	int		c;
+	int		a_min;
+	int		a_pos;
+	int		rot;
+	t_move	best;
 
 	c = 2;
 	while (h->a_len > 3 && c--)
 		pb(h, 1);
 	while (h->a_len > 3)
-		break ;
+	{
+		best = find_cheaper(h, h->a, h->b);
+		do_move(h, 'a', best.instruction);
+	}
 	if (!is_sorted(h->a) && h->a_len == 3)
 		sort_three(h);
+	while (h->b_len > 0)
+	{
+		best = find_cheaper(h, h->b, h->a);
+		do_move(h, 'b', best.instruction);
+	}
+	a_min = get_min(h->a);
+	a_pos = get_position(a_min, h->a);
+	rot = 1;
+	if (a_pos < h->a_len / 2)
+		rot = -1;
+	while (h->a->num != a_min)
+	{
+		if (rot == 1)
+			rr(h);
+		else
+			rrr(h);
+	}
+}
+
+static void	do_move(t_heap *h, char stack, char *instruction)
+{
+	if (ft_strncmp(instruction, "rr", 4) == 0)
+		rr(h);
+	else if (ft_strncmp(instruction, "rrr", 4) == 0)
+		rrr(h);
+	if (stack == 'a')
+	{
+		if (ft_strncmp(instruction, "p", 4) == 0)
+			pb(h, 1);
+		else if (ft_strncmp(instruction, "rn", 4) == 0)
+			ra(h, 1);
+		else if (ft_strncmp(instruction, "rt", 4) == 0)
+			rb(h, 1);
+		else if (ft_strncmp(instruction, "rrn", 4) == 0)
+			rra(h, 1);
+		else if (ft_strncmp(instruction, "rrt", 4) == 0)
+			rrb(h, 1);
+	}
+	if (stack == 'b')
+	{
+		if (ft_strncmp(instruction, "p", 4) == 0)
+			pa(h, 1);
+		else if (ft_strncmp(instruction, "rn", 4) == 0)
+			rb(h, 1);
+		else if (ft_strncmp(instruction, "rt", 4) == 0)
+			ra(h, 1);
+		else if (ft_strncmp(instruction, "rrn", 4) == 0)
+			rrb(h, 1);
+		else if (ft_strncmp(instruction, "rrt", 4) == 0)
+			rra(h, 1);
+	}
 }
