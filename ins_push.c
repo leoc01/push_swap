@@ -25,7 +25,7 @@ void	pa(t_heap *h, int print)
 	if (na)
 		insert_s(na, &h->a);
 	if (print)
-		ft_putstr_fd("\npa\n", 1);
+		ft_putstr_fd("pa\n", 1);
 	h->b_len--;
 	h->a_len++;
 }
@@ -40,7 +40,7 @@ void	pb(t_heap *h, int print)
 	if (nb)
 		insert_s(nb, &h->b);
 	if (print)
-		ft_putstr_fd("\npb\n", 1);
+		ft_putstr_fd("pb\n", 1);
 	h->a_len--;
 	h->b_len++;
 }

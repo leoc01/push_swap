@@ -16,7 +16,7 @@ void	rb(t_heap *h, int print)
 {
 	if (!h->b)
 		return ;
-	h->b = h->b->prev;
+	h->b = h->b->next;
 	if (print)
 		ft_putstr_fd("rb\n", 1);
 }
@@ -25,7 +25,7 @@ void	rrb(t_heap *h, int print)
 {
 	if (!h->b)
 		return ;
-	h->b = h->b->next;
+	h->b = h->b->prev;
 	if (print)
 		ft_putstr_fd("rrb\n", 1);
 }
@@ -40,5 +40,5 @@ void	sb(t_heap *h, int print)
 	h->b->num = h->b->next->num;
 	h->b->next->num = aux;
 	if (print)
-		ft_putstr_fd("\nsb\n", 1);
+		ft_putstr_fd("sb\n", 1);
 }
