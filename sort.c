@@ -35,9 +35,9 @@ int	is_sorted(t_stack *s)
 void	sort_three(t_heap *h)
 {
 	if (h->a->next->num > h->a->num && h->a->next->num > h->a->prev->num)
-		ra(h, 1);
-	else if (h->a->num > h->a->next->num && h->a->num > h->a->prev->num)
 		rra(h, 1);
+	else if (h->a->num > h->a->next->num && h->a->num > h->a->prev->num)
+		ra(h, 1);
 	if (h->a->num > h->a->next->num)
 		sa(h, 1);
 }
@@ -55,6 +55,7 @@ void	push_swap(t_heap *h)
 		pb(h, 1);
 	while (h->a_len > 3)
 	{
+//		break ;
 		best = find_cheaper(h, h->a, h->b);
 		do_move(h, 'a', best.instruction);
 	}
@@ -62,6 +63,7 @@ void	push_swap(t_heap *h)
 		sort_three(h);
 	while (h->b_len > 0)
 	{
+//		break ;
 		best = find_cheaper(h, h->b, h->a);
 		do_move(h, 'b', best.instruction);
 	}
@@ -72,10 +74,11 @@ void	push_swap(t_heap *h)
 		rot = -1;
 	while (h->a->num != a_min)
 	{
+//		break ;
 		if (rot == 1)
-			rr(h);
+			rra(h, 1);
 		else
-			rrr(h);
+			ra(h, 1);
 	}
 }
 

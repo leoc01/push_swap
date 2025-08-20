@@ -39,10 +39,10 @@ void	def_move(t_heap *h, t_move *best)
 	int rrn;
 	int rrt;
 
-	rrn = get_position(best->num, best->s);
-	rrt = get_position(best->target, best->d);
-	rn = get_len(h, best->s) - rrn;
-	rt = get_len(h, best->d) - rrt;
+	rn = get_position(best->num, best->s);
+	rt = get_position(best->target, best->d);
+	rrn = get_len(h, best->s) - rn;
+	rrt = get_len(h, best->d) - rt;
 
 	if (best->cost == 0)
 		return ;
@@ -83,10 +83,10 @@ t_move	get_cost(t_heap *h, int num, t_stack *s, t_stack *d)
 	move.d = d;
 	if (!s || !d)
 		return (move);
-	rrn = get_position(num, s);
-	rrt = get_position(move.target, d);
-	rn = get_len(h, s) - rrn;
-	rt = get_len(h, d) - rrt;
+	rn = get_position(num, s);
+	rt = get_position(move.target, d);
+	rrn = get_len(h, s) - rn;
+	rrt = get_len(h, d) - rt;
 	move.cost = (min(min(max(rn, rt), max(rrn, rrt)), min(rn + rrt, rrn + rt)));
 	return (move);
 }
