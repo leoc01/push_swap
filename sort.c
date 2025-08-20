@@ -49,7 +49,9 @@ void	push_swap(t_heap *h)
 
 	c = 2;
 	while (h->a_len > 3 && c--)
+	{
 		pb(h, 1);
+	}
 	while (h->a_len > 3)
 	{
 		best = find_cheaper(h, h->a, h->b);

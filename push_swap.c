@@ -15,6 +15,7 @@
 static t_stack	*init_stack(t_heap *h, char **nums);
 static void		link_stack(t_stack *s, int l);
 static void		close_ps(t_heap *h, int code);
+static void		check_nums(t_heap *h, char **nums);
 
 int	main(int ac, char **av)
 {
@@ -23,16 +24,21 @@ int	main(int ac, char **av)
 
 	nums = NULL;
 	h.nums = NULL;
+	h.s = NULL;
 	if (ac < 2)
 		return (55);
 	else if (ac == 2)
 	{
 		h.nums = ft_split(av[1], ' ');
+		if (!h.nums || !*h.nums)
+			close_ps(&h, 1);
+		check_nums(&h, h.nums);
 		h.a = init_stack(&h, h.nums);
 	}
 	else
 	{
 		nums = &av[1];
+		check_nums(&h, nums);
 		h.a = init_stack(&h, nums);
 	}
 	h.b = NULL;
@@ -103,4 +109,29 @@ static void	close_ps(t_heap *h, int code)
 	if (code)
 		ft_putstr_fd("Error\n", 2);
 	exit(code);
+}
+
+static void	check_nums(t_heap *h, char **nums)
+{
+	int	w;
+	int	d;
+
+	if (!nums)
+		close_ps(h, 1);
+	w = 0;
+	while (nums && nums[w])
+	{
+		d = 0;
+		while (nums[w][d])
+		{
+			if (!ft_isdigit(nums[w][d]) && nums[w][d] != '-')
+				close_ps(h, 1);
+			if (nums[w][d] == '-' && !ft_isdigit(nums[w][d + 1]))
+				close_ps(h, 2);
+			if (d > 0 && !ft_isdigit(nums[w][d]))
+				close_ps(h, 3);
+			d++;
+		}
+		w++;
+	}
 }
