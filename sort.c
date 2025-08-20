@@ -11,14 +11,13 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 static void	do_move(t_heap *h, char stack, char *instruction);
+static void	min_to_top(t_heap *h);
 
 int	is_sorted(t_stack *s)
 {
 	t_stack	*first;
-
 
 	if (!s)
 		return (0);
@@ -46,9 +45,6 @@ void	sort_three(t_heap *h)
 void	push_swap(t_heap *h)
 {
 	int		c;
-	int		a_min;
-	int		a_pos;
-	int		rot;
 	t_move	best;
 
 	c = 2;
@@ -66,6 +62,15 @@ void	push_swap(t_heap *h)
 		best = find_cheaper(h, h->b, h->a);
 		do_move(h, 'b', best.instruction);
 	}
+	min_to_top(h);
+}
+
+static void	min_to_top(t_heap *h)
+{
+	int		a_min;
+	int		a_pos;
+	int		rot;
+
 	a_min = get_min(h->a);
 	a_pos = get_position(a_min, h->a);
 	rot = 1;
