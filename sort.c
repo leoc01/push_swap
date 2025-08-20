@@ -19,6 +19,7 @@ int	is_sorted(t_stack *s)
 {
 	t_stack	*first;
 
+
 	if (!s)
 		return (0);
 	first = s;
@@ -55,7 +56,6 @@ void	push_swap(t_heap *h)
 		pb(h, 1);
 	while (h->a_len > 3)
 	{
-//		break ;
 		best = find_cheaper(h, h->a, h->b);
 		do_move(h, 'a', best.instruction);
 	}
@@ -63,7 +63,6 @@ void	push_swap(t_heap *h)
 		sort_three(h);
 	while (h->b_len > 0)
 	{
-//		break ;
 		best = find_cheaper(h, h->b, h->a);
 		do_move(h, 'b', best.instruction);
 	}
@@ -74,7 +73,6 @@ void	push_swap(t_heap *h)
 		rot = -1;
 	while (h->a->num != a_min)
 	{
-//		break ;
 		if (rot == 1)
 			rra(h, 1);
 		else
@@ -88,30 +86,20 @@ static void	do_move(t_heap *h, char stack, char *instruction)
 		rr(h);
 	else if (ft_strncmp(instruction, "rrr", 4) == 0)
 		rrr(h);
-	if (stack == 'a')
-	{
-		if (ft_strncmp(instruction, "p", 4) == 0)
-			pb(h, 1);
-		else if (ft_strncmp(instruction, "rn", 4) == 0)
-			ra(h, 1);
-		else if (ft_strncmp(instruction, "rt", 4) == 0)
-			rb(h, 1);
-		else if (ft_strncmp(instruction, "rrn", 4) == 0)
-			rra(h, 1);
-		else if (ft_strncmp(instruction, "rrt", 4) == 0)
-			rrb(h, 1);
-	}
-	if (stack == 'b')
-	{
-		if (ft_strncmp(instruction, "p", 4) == 0)
-			pa(h, 1);
-		else if (ft_strncmp(instruction, "rn", 4) == 0)
-			rb(h, 1);
-		else if (ft_strncmp(instruction, "rt", 4) == 0)
-			ra(h, 1);
-		else if (ft_strncmp(instruction, "rrn", 4) == 0)
-			rrb(h, 1);
-		else if (ft_strncmp(instruction, "rrt", 4) == 0)
-			rra(h, 1);
-	}
+	else if (stack == 'a' && ft_strncmp(instruction, "p", 4) == 0)
+		pb(h, 1);
+	else if (stack == 'b' && ft_strncmp(instruction, "p", 4) == 0)
+		pa(h, 1);
+	else if ((stack == 'a' && ft_strncmp(instruction, "rn", 4) == 0)
+		|| (stack == 'b' && ft_strncmp(instruction, "rt", 4) == 0))
+		ra(h, 1);
+	else if ((stack == 'a' && ft_strncmp(instruction, "rt", 4) == 0)
+		|| (stack == 'b' && ft_strncmp(instruction, "rn", 4) == 0))
+		rb(h, 1);
+	else if ((stack == 'a' && ft_strncmp(instruction, "rrn", 4) == 0)
+		|| (stack == 'b' && ft_strncmp(instruction, "rrt", 4) == 0))
+		rra(h, 1);
+	else if ((stack == 'a' && ft_strncmp(instruction, "rrt", 4) == 0)
+		|| (stack == 'b' && ft_strncmp(instruction, "rrn", 4) == 0))
+		rrb(h, 1);
 }

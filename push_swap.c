@@ -37,7 +37,6 @@ int	main(int ac, char **av)
 	}
 	h.b = NULL;
 	push_swap(&h);
-//	debug_interactive(&h);
 	close_ps(&h, 0);
 }
 
