@@ -81,6 +81,8 @@ int		get_len(t_heap *h, t_stack *s);
 int		max(int n1, int n2);
 int		min(int n1, int n2);
 
-void	debug_interactive(t_heap *h);
+void	check_nums(t_heap *h, char **nums);
+void	check_dup(t_heap *h, t_stack *s);
+void	close_ps(t_heap *h, int code);
 
 #endif

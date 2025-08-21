@@ -6,7 +6,7 @@
 /*   By: lbuscaro <lbuscaro@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 17:41:35 by lbuscaro          #+#    #+#             */
-/*   Updated: 2025/08/08 17:41:39 by lbuscaro         ###   ########.fr       */
+/*   Updated: 2025/08/21 15:48:54 by lbuscaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static t_stack	*init_stack(t_heap *h, char **nums);
 static void		link_stack(t_stack *s, int l);
-static void		close_ps(t_heap *h, int code);
-static void		check_nums(t_heap *h, char **nums);
 
 int	main(int ac, char **av)
 {
@@ -53,7 +51,7 @@ static t_stack	*init_stack(t_heap *h, char **nums)
 	int		l;
 
 	if (!nums)
-		close_ps(h, 1);
+		close_ps(h, 2);
 	l = 0;
 	while (nums[l])
 		l++;
@@ -61,16 +59,18 @@ static t_stack	*init_stack(t_heap *h, char **nums)
 	h->b_len = 0;
 	s = ft_calloc(l, sizeof(t_stack));
 	if (!s)
-		close_ps(h, 1);
+		close_ps(h, 3);
 	h->s = s;
 	c = 0;
 	while (c < l)
 	{
 		s[c].num = ft_atoi(nums[c]);
+		if ((s[c].num == 0 && nums[c][0] != '0') || ft_strlen(nums[c]) > 11)
+			close_ps(h, 9);
 		c++;
 	}
 	link_stack(s, l);
-	return (s);
+	return (check_dup(h, s), s);
 }
 
 static void	link_stack(t_stack *s, int l)
@@ -90,7 +90,7 @@ static void	link_stack(t_stack *s, int l)
 	s[l - 1].prev = &s[l - 2];
 }
 
-static void	close_ps(t_heap *h, int code)
+void	close_ps(t_heap *h, int code)
 {
 	char	**nums;
 
@@ -109,29 +109,4 @@ static void	close_ps(t_heap *h, int code)
 	if (code)
 		ft_putstr_fd("Error\n", 2);
 	exit(code);
-}
-
-static void	check_nums(t_heap *h, char **nums)
-{
-	int	w;
-	int	d;
-
-	if (!nums)
-		close_ps(h, 1);
-	w = 0;
-	while (nums && nums[w])
-	{
-		d = 0;
-		while (nums[w][d])
-		{
-			if (!ft_isdigit(nums[w][d]) && nums[w][d] != '-')
-				close_ps(h, 1);
-			if (nums[w][d] == '-' && !ft_isdigit(nums[w][d + 1]))
-				close_ps(h, 2);
-			if (d > 0 && !ft_isdigit(nums[w][d]))
-				close_ps(h, 3);
-			d++;
-		}
-		w++;
-	}
 }

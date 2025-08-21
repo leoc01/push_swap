@@ -14,8 +14,8 @@
 
 int	ft_atoi(const char *nptr)
 {
-	int	result;
-	int	signal;
+	long	result;
+	long	signal;
 
 	signal = 1;
 	result = 0;
@@ -35,5 +35,8 @@ int	ft_atoi(const char *nptr)
 		result = result * 10 + (*nptr) - '0';
 		nptr++;
 	}
-	return (signal * result);
+	result *= signal;
+	if (result < INT_MIN || result > INT_MAX)
+		return (0);
+	return ((int)result);
 }

@@ -1,5 +1,6 @@
 push_swap
 checker_linux
+*.bu
 *.o
 *.a
 *.out

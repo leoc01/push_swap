@@ -26,7 +26,7 @@ SRC += sort.c
 SRC += cost.c
 SRC += cost_utils.c
 SRC += target.c
-SRC += inter.c
+SRC += check.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -47,6 +47,6 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-	make -C libft clean
+	make -C libft fclean
 
 re: fclean all
