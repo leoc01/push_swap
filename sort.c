@@ -47,6 +47,8 @@ void	push_swap(t_heap *h)
 	int		c;
 	t_move	best;
 
+	if (is_sorted(h->a))
+		return ;
 	c = 2;
 	while (h->a_len > 3 && c--)
 	{
@@ -90,9 +92,9 @@ static void	min_to_top(t_heap *h)
 static void	do_move(t_heap *h, char stack, char *instruction)
 {
 	if (ft_strncmp(instruction, "rr", 4) == 0)
-		rr(h);
+		rr(h, 1);
 	else if (ft_strncmp(instruction, "rrr", 4) == 0)
-		rrr(h);
+		rrr(h, 1);
 	else if (stack == 'a' && ft_strncmp(instruction, "p", 4) == 0)
 		pb(h, 1);
 	else if (stack == 'b' && ft_strncmp(instruction, "p", 4) == 0)

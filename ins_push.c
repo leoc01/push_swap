@@ -24,10 +24,10 @@ void	pa(t_heap *h, int print)
 	na = remove_s(&h->b);
 	if (na)
 		insert_s(na, &h->a);
-	if (print)
-		ft_putstr_fd("pa\n", 1);
 	h->b_len--;
 	h->a_len++;
+	if (print)
+		ft_putstr_fd("pa\n", 1);
 }
 
 void	pb(t_heap *h, int print)
@@ -39,10 +39,10 @@ void	pb(t_heap *h, int print)
 	nb = remove_s(&h->a);
 	if (nb)
 		insert_s(nb, &h->b);
-	if (print)
-		ft_putstr_fd("pb\n", 1);
 	h->a_len--;
 	h->b_len++;
+	if (print)
+		ft_putstr_fd("pb\n", 1);
 }
 
 static t_stack	*remove_s(t_stack **s)

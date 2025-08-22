@@ -50,22 +50,19 @@ FILES += ft_putchar_fd.c
 FILES += ft_putstr_fd.c
 FILES += ft_putendl_fd.c
 FILES += ft_putnbr_fd.c
+FILES += get_next_line.c
+FILES += get_next_line_utils.c
+FILES += ft_lstnew.c
+FILES += ft_lstadd_front.c
+FILES += ft_lstsize.c
+FILES += ft_lstlast.c
+FILES += ft_lstadd_back.c
+FILES += ft_lstdelone.c
+FILES += ft_lstclear.c
+FILES += ft_lstiter.c
+FILES += ft_lstmap.c
 
 OBJS = $(FILES:%.c=%.o)
-
-BONUS_FILES = ft_lstnew.c
-BONUS_FILES += ft_lstadd_front.c
-BONUS_FILES += ft_lstsize.c
-BONUS_FILES += ft_lstlast.c
-BONUS_FILES += ft_lstadd_back.c
-BONUS_FILES += ft_lstdelone.c
-BONUS_FILES += ft_lstclear.c
-BONUS_FILES += ft_lstiter.c
-BONUS_FILES += ft_lstmap.c
-
-BONUS_OBJS = $(BONUS_FILES:%.c=%.o)
-
-BONUS_STATUS = .bonus_linked
 
 all: $(NAME)
 
@@ -82,9 +79,3 @@ re: fclean all
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
-
-bonus: $(BONUS_STATUS)
-
-$(BONUS_STATUS): $(NAME) $(BONUS_OBJS)
-	ar rcs $(NAME) $(BONUS_OBJS)
-	@touch $(BONUS_STATUS)

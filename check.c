@@ -39,8 +39,8 @@ void	check_nums(t_heap *h, char **nums)
 
 void	check_dup(t_heap *h, t_stack *s)
 {
-	t_stack *first;
-	t_stack *this;
+	t_stack	*first;
+	t_stack	*this;
 
 	first = s;
 	this = first->next;

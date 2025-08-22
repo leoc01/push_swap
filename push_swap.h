@@ -55,9 +55,9 @@ void	rb(t_heap *h, int print);
 void	rrb(t_heap *h, int print);
 void	sb(t_heap *h, int print);
 
-void	rr(t_heap *h);
-void	rrr(t_heap *h);
-void	ss(t_heap *h);
+void	rr(t_heap *h, int print);
+void	rrr(t_heap *h, int print);
+void	ss(t_heap *h, int print);
 
 void	pa(t_heap *h, int print);
 void	pb(t_heap *h, int print);
@@ -83,6 +83,9 @@ int		min(int n1, int n2);
 
 void	check_nums(t_heap *h, char **nums);
 void	check_dup(t_heap *h, t_stack *s);
+
+t_stack	*init_stack(t_heap *h, char **nums);
+void	link_stack(t_stack *s, int l);
 void	close_ps(t_heap *h, int code);
 
 #endif
